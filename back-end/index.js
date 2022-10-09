@@ -35,8 +35,18 @@ app.get('/users', (req, res) => {
 
 // Add a user
 app.post('/users', (req, res) => {
-    users.push(req.body)
-    res.send('POST request to the homepage')
+    let matchDocument = req.body;
+    const dbConnect = database_obj.getDb();
+    dbConnect
+        .collection('users')
+        .insertOne(matchDocument, function (err, result) {
+        if (err) {
+            res.status(400).send('Error inserting matches!');
+        } else {
+            console.log(`Added a new user with id ${result.insertedId}`);
+            res.status(204).send("Successfully added a new user!");
+        }
+    });
 })
 
 const PORT = 3001
