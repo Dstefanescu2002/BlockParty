@@ -1,11 +1,17 @@
+//Initialize Express Application
 const express = require('express')
 const app = express()
 // Middleware
 app.use(express.json());
-// MongoDB/Mongoose initialization
-const mongoose = require("mongoose");
-
-let users = []
+// Include MongoDB connection and connect
+const database_obj = require('./database/connect');
+// perform a database connection when the server starts
+database_obj.connectToServer(function (err) {
+    if (err) {
+      console.error(err);
+      process.exit();
+    }
+});
 
 // Get the homepage, will have basic information
 app.get('/', (req, res) => {
@@ -14,7 +20,17 @@ app.get('/', (req, res) => {
 
 // Get all users
 app.get('/users', (req, res) => {
-    res.json(users)
+    const dbConnect = database_obj.getDb();
+    dbConnect
+        .collection("users")
+        .find({}).limit(50)
+        .toArray(function (err, result) {
+            if (err) {
+                res.status(400).send("Error fetching listings!");
+            } else {
+                res.json(result);
+            }
+    });
 })
 
 // Add a user
