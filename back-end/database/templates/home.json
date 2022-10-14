@@ -1,0 +1,15 @@
+{
+    "address": {
+        "type": "<string>",
+        "required": true
+    },
+    "residents": {
+        "type": ["<user ID>"],
+        "required": true,
+        "comments": "If empty, house is deleted"
+    },
+    "picture": {
+        "type": "<image>",
+        "required": false
+    }
+}

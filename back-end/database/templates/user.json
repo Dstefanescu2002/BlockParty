@@ -1,0 +1,28 @@
+{
+    "email": {
+        "type": "<string>",
+        "required": true
+    },
+    "name": {
+        "type": "<string>",
+        "required": true
+    },
+    "home": {
+        "type": "<home ID>",
+        "required": true
+    },
+    "interests": {
+        "type": ["<string>"],
+        "required": false,
+        "comments": "Not required, but will be default empty"
+    },
+    "description": {
+        "type": "<string>",
+        "required": false,
+        "comments": "Not required, but will be default empty"
+    },
+    "picture": {
+        "type": "<image>",
+        "required": false
+    }
+}
